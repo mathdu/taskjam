@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { TaskDto } from './task.model';
+import { TaskPayload, UpdateTaskPayload } from './task.model';
 import { TaskService } from './task.service';
 
 @Controller('tasks')
@@ -26,12 +26,12 @@ export class TaskController {
   }
 
   @Post()
-  async create(@Body() task: TaskDto) {
+  async create(@Body() task: TaskPayload) {
     return await this.service.create(task);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() task: TaskDto) {
+  async update(@Param('id') id: string, @Body() task: UpdateTaskPayload) {
     return await this.service.update(id, task);
   }
 

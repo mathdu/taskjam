@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { ITask, Task, TaskDto } from './task.model';
+import { ITask, Task, TaskPayload } from './task.model';
 
 @Injectable()
 export class TaskService {
@@ -16,14 +16,14 @@ export class TaskService {
     return await this.model.findById(id).exec();
   }
 
-  async create(project: TaskDto): Promise<Task> {
+  async create(project: TaskPayload): Promise<Task> {
     return await new this.model({
       ...project,
       createdAt: new Date(),
     }).save();
   }
 
-  async update(id: string, project: TaskDto): Promise<Task> {
+  async update(id: string, project: TaskPayload): Promise<Task> {
     return await this.model.findByIdAndUpdate(id, project).exec();
   }
 

@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { ProjectDto } from './project.model';
+import { ProjectPayload } from './project.model';
 import { ProjectService } from './project.service';
 
 @Controller('projects')
@@ -26,12 +26,12 @@ export class ProjectController {
   }
 
   @Post()
-  async create(@Body() project: ProjectDto) {
+  async create(@Body() project: ProjectPayload) {
     return await this.service.create(project);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() project: ProjectDto) {
+  async update(@Param('id') id: string, @Body() project: ProjectPayload) {
     return await this.service.update(id, project);
   }
 
