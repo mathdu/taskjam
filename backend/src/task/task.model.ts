@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+
+import { Project } from 'src/project/project.model';
 
 // Schema & Document
 @Schema()
@@ -15,6 +17,9 @@ export class Task {
 
   @Prop()
   modifiedAt?: Date;
+
+  @Prop({ type: Types.ObjectId, ref: 'Project' })
+  project: Project;
 }
 export type ITask = Task & Document;
 export const TaskSchema = SchemaFactory.createForClass(Task);
