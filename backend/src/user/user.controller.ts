@@ -22,7 +22,7 @@ export class UserController {
     const user = await this.service.getByEmail(email);
     if (!user)
       throw new BadRequestException(
-        'The user with that username could not be found.',
+        'The user with that email could not be found.',
       );
     return user;
   }
