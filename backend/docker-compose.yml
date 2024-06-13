@@ -1,0 +1,23 @@
+services:
+  nest:
+    container_name: nest
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    links:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: nest
+    volumes:
+      - data-volume:/data/db
+
+volumes:
+  data-volume:
