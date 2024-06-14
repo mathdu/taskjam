@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 import { ITask, Task, TaskPayload } from './task.model';
 
@@ -8,26 +8,27 @@ import { ITask, Task, TaskPayload } from './task.model';
 export class TaskService {
   constructor(@InjectModel(Task.name) private readonly model: Model<ITask>) {}
 
-  async findAll(): Promise<Task[]> {
-    return await this.model.find().exec();
+  async findAll(userId: string): Promise<Task[]> {
+    return await this.model.find({ user: new Types.ObjectId(userId) }).exec();
   }
 
-  async findOne(id: string): Promise<Task> {
-    return await this.model.findById(id).exec();
+  async findOne(id: string, userId: string): Promise<Task> {
+    return await this.model.findOne({ _id: id, user: new Types.ObjectId(userId) }).exec();
   }
 
-  async create(project: TaskPayload): Promise<Task> {
+  async create(payload: TaskPayload, userId: string): Promise<Task> {
     return await new this.model({
-      ...project,
+      ...payload,
       createdAt: new Date(),
+      user: userId,
     }).save();
   }
 
-  async update(id: string, project: TaskPayload): Promise<Task> {
-    return await this.model.findByIdAndUpdate(id, project).exec();
+  async update(id: string, payload: TaskPayload, userId: string): Promise<Task> {
+    return await this.model.findOneAndUpdate({ _id: id, user: new Types.ObjectId(userId) }, payload).exec();
   }
 
-  async delete(id: string): Promise<Task> {
-    return await this.model.findByIdAndDelete(id).exec();
+  async delete(id: string, userId: string): Promise<Task> {
+    return await this.model.findOneAndDelete({ _id: id, user: new Types.ObjectId(userId) }).exec();
   }
 }

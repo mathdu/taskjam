@@ -6,37 +6,48 @@ import {
   Param,
   Post,
   Put,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { TaskPayload, UpdateTaskPayload } from './task.model';
 import { TaskService } from './task.service';
 
+@ApiBearerAuth()
+@ApiTags('tasks')
 @Controller('api/tasks')
 export class TaskController {
   constructor(private readonly service: TaskService) {}
 
   @Get()
-  async index() {
-    return await this.service.findAll();
+  @UseGuards(AuthGuard("jwt"))
+  async index(@Req() req) {
+    return await this.service.findAll(req.user._id);
   }
 
   @Get(':id')
-  async find(@Param('id') id: string) {
-    return await this.service.findOne(id);
+  @UseGuards(AuthGuard("jwt"))
+  async find(@Param('id') id: string, @Req() req) {
+    return await this.service.findOne(id, req.user._id);
   }
 
   @Post()
-  async create(@Body() task: TaskPayload) {
-    return await this.service.create(task);
+  @UseGuards(AuthGuard("jwt"))
+  async create(@Body() task: TaskPayload, @Req() req) {
+    return await this.service.create(task, req.user._id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() task: UpdateTaskPayload) {
-    return await this.service.update(id, task);
+  @UseGuards(AuthGuard("jwt"))
+  async update(@Param('id') id: string, @Body() payload: UpdateTaskPayload, @Req() req) {
+    return await this.service.update(id, payload, req.user._id);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
-    return await this.service.delete(id);
+  @UseGuards(AuthGuard("jwt"))
+  async delete(@Param('id') id: string, @Req() req) {
+    return await this.service.delete(id, req.user._id);
   }
 }

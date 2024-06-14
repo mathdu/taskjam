@@ -1,7 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+
 import { UserService } from '../user/user.service';
 import { IUser } from '../user/user.model';
+
 import { LoginPayload } from './auth.payload';
 
 export interface ITokenReturnBody {
@@ -19,7 +21,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {
     // TODO: this.configService.get('WEBTOKEN_EXPIRATION_TIME');
-    this.expiration = '2400';
+    this.expiration = '36000';
   }
 
   async createToken({
