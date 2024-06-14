@@ -1,5 +1,4 @@
 import headers from '@fastify/helmet';
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
@@ -30,5 +29,5 @@ export const SWAGGER_API_CURRENT_VERSION = '1.0';
   app.enableCors();
   app.register(headers);
 
-  await app.listen(3000, "0.0.0.0");
+  await app.listen(3000, '0.0.0.0');
 })();

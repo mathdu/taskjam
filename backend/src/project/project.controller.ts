@@ -11,7 +11,7 @@ import {
 import { ProjectPayload } from './project.model';
 import { ProjectService } from './project.service';
 
-@Controller('projects')
+@Controller('api/projects')
 export class ProjectController {
   constructor(private readonly service: ProjectService) {}
 
