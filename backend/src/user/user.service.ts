@@ -3,7 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as crypto from 'crypto';
 import { Model } from 'mongoose';
 
-import { IUser, UpdateUserPayload, User } from './user.model';
+import { IUser, User } from './user.model';
+import { RegisterPayload } from 'src/auth/auth.payload';
 // import { RegisterPayload } from "modules/auth/payload/register.payload";
 
 @Injectable()
@@ -28,7 +29,7 @@ export class UserService {
   }
 
   // TODO: Register Payload
-  async create(payload: UpdateUserPayload): Promise<IUser> {
+  async create(payload: RegisterPayload): Promise<IUser> {
     const user = await this.getByEmail(payload.email);
     if (user) {
       throw new NotAcceptableException(
@@ -39,6 +40,7 @@ export class UserService {
     return await new this.model({
       ...payload,
       password: crypto.createHmac('sha256', payload.password).digest('hex'),
+      createdAt: new Date(),
     }).save();
   }
 }
