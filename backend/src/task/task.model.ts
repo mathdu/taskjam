@@ -31,7 +31,10 @@ export const TaskSchema = SchemaFactory.createForClass(Task);
 // Payload
 export class TaskPayload {
   title: string;
+  project: string;
 }
-export class UpdateTaskPayload extends TaskPayload {
+export class UpdateTaskPayload {
+  title?: string;
+  project?: string;
   completedAt?: Date;
 }

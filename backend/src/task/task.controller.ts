@@ -27,6 +27,12 @@ export class TaskController {
     return await this.service.findAll(req.user._id);
   }
 
+  @Get('project/:id')
+  @UseGuards(AuthGuard("jwt"))
+  async findForProject(@Param('id') id: string, @Req() req) {
+    return await this.service.findAllForProject(id, req.user._id);
+  }
+
   @Get(':id')
   @UseGuards(AuthGuard("jwt"))
   async find(@Param('id') id: string, @Req() req) {
@@ -35,8 +41,8 @@ export class TaskController {
 
   @Post()
   @UseGuards(AuthGuard("jwt"))
-  async create(@Body() task: TaskPayload, @Req() req) {
-    return await this.service.create(task, req.user._id);
+  async create(@Body() payload: TaskPayload, @Req() req) {
+    return await this.service.create(payload, req.user._id);
   }
 
   @Put(':id')

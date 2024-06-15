@@ -21,9 +21,7 @@ export class UserController {
   async find(@Param('email') email: string) {
     const user = await this.service.getByEmail(email);
     if (!user)
-      throw new BadRequestException(
-        'The user with that email could not be found.',
-      );
+      throw new BadRequestException('The user with that email could not be found.');
     return user;
   }
 }
