@@ -11,13 +11,13 @@ import { authProvider } from "./authProvider";
 export const App = () => (
   <Admin dataProvider={dataProvider} authProvider={authProvider}>
     <Resource
-      name="Project"
+      name="projects"
       list={ListGuesser}
       edit={EditGuesser}
       show={ShowGuesser}
     />
     <Resource
-      name="Task"
+      name="tasks"
       list={ListGuesser}
       edit={EditGuesser}
       show={ShowGuesser}
