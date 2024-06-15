@@ -7,5 +7,5 @@ RUN yarn
 # Copy app source code
 COPY . .
 
-EXPOSE 10086
+EXPOSE 5173
 CMD [ "yarn", "dev"]

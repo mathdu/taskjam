@@ -1,11 +1,11 @@
 services:
   nest:
     container_name: nest
-    build: .
+    build: ./backend
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
+      - ./backend:/app
     links:
       - mongo
 
@@ -18,6 +18,18 @@ services:
       MONGO_INITDB_DATABASE: nest
     volumes:
       - data-volume:/data/db
+
+  frontend:
+    build:
+      context: ./frontend
+    command: yarn dev
+    volumes:
+      - ./frontend/package.json:/home/node/package.json
+      - ./frontend/src:/home/node/src:cached
+    ports:
+      - 5173:5173
+    env_file:
+      - ./frontend/.env
 
 volumes:
   data-volume:
