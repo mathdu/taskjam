@@ -20,6 +20,7 @@ services:
       - data-volume:/data/db
 
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
     command: yarn dev
