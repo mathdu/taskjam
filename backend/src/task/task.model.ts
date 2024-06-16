@@ -19,14 +19,26 @@ export class Task {
   @Prop()
   modifiedAt?: Date;
 
-  @Prop({ type: Types.ObjectId, ref: 'Project' })
+  @Prop({ type: Types.ObjectId, ref: 'Project', required: true })
   project: Project;
 
-  @Prop({ type: Types.ObjectId, ref: 'User' })
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   user: User;
 }
 export type ITask = Task & Document;
 export const TaskSchema = SchemaFactory.createForClass(Task);
+
+// set virtual field for `id`
+TaskSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+TaskSchema.set('toJSON', { virtuals: true,
+  transform: function(doc, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+ });
+TaskSchema.set('toObject', { virtuals: true });
 
 // Payload
 export class TaskPayload {
