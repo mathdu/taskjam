@@ -1,4 +1,4 @@
-import { List, SimpleList } from 'react-admin';
+import { List, ReferenceManyCount, SimpleList } from 'react-admin';
 
 export const ProjectList = () => (
   <List>
@@ -6,7 +6,7 @@ export const ProjectList = () => (
         linkType="show"
         primaryText={(record) => record.title}
         secondaryText={(record) => record.description}
-        tertiaryText={(record) => record.id}
+        tertiaryText={() => <ReferenceManyCount reference="tasks" target="project" />}
     />
   </List>
 );
