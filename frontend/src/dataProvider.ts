@@ -55,10 +55,11 @@ const restProvider = (
     },
 
     getManyReference: (resource, params) => {
-      const url = `${apiUrl}/${resource}/${params.target}/${params.id}}`;
+      const url = `${apiUrl}/${resource}/${params.target}/${params.id}`;
       return httpClient(url).then(({ json }) => {
         return {
             data: json,
+            total: json.length,
         };
       });
     },

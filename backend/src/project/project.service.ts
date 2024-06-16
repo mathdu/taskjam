@@ -17,7 +17,7 @@ export class ProjectService {
   }
 
   async findOne(id: string, userId: string): Promise<Project> {
-    return await this.model.findOne({ _id: id, user: new Types.ObjectId(userId) }).select(selectedFields).exec();
+    return await this.model.findOne({ _id: id, user: new Types.ObjectId(userId) }).populate('tasks').select(selectedFields).exec();
   }
 
   async create(payload: ProjectPayload, userId: string): Promise<Project> {
