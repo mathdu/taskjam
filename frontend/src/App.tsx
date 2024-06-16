@@ -13,12 +13,14 @@ export const App = () => (
   <Admin dataProvider={dataProvider} authProvider={authProvider}>
     <Resource
       name="projects"
+      recordRepresentation="title"
       list={ProjectList}
       edit={ProjectEdit}
       show={ProjectShow}
     />
     <Resource
       name="tasks"
+      recordRepresentation="title"
       list={TaskList}
       edit={TaskEdit}
       show={TaskShow}

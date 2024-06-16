@@ -1,11 +1,11 @@
-import { DateInput, Edit, SimpleForm, TextInput } from 'react-admin';
+import { DateInput, Edit, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'react-admin';
 
 export const TaskEdit = () => (
-    <Edit>
-        <SimpleForm>
-            <TextInput source="title" />
-            <TextInput source="project" />
-            <DateInput source="completedAt" />
-        </SimpleForm>
-    </Edit>
+  <Edit>
+    <SimpleForm>
+      <TextInput source="title" />
+      <ReferenceInput source="project" reference="projects" link="show"><SelectInput source="title" /></ReferenceInput>
+      <DateInput source="completedAt" required={false} />
+    </SimpleForm>
+  </Edit>
 );

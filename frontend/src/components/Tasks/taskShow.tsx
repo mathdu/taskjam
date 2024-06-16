@@ -1,11 +1,11 @@
-import { DateField, Show, SimpleShowLayout, TextField } from 'react-admin';
+import { DateField, ReferenceField, Show, SimpleShowLayout, TextField } from 'react-admin';
 
 export const TaskShow = () => (
-    <Show>
-        <SimpleShowLayout>
-            <TextField source="title" />
-            <TextField source="project" />
-            <DateField source="id" />
-        </SimpleShowLayout>
-    </Show>
+  <Show>
+    <SimpleShowLayout>
+      <TextField source="title" />
+      <ReferenceField source="project" reference="projects" link="show"></ReferenceField>
+      <DateField source="completedAt" required={false} />
+    </SimpleShowLayout>
+  </Show>
 );

@@ -21,7 +21,7 @@ export class TaskService {
   }
 
   async findAll(userId: string): Promise<Task[]> {
-    return await this.model.find({ user: new Types.ObjectId(userId) }).populate('project', 'title').select(selectedFields).exec();
+    return await this.model.find({ user: new Types.ObjectId(userId) }).select(selectedFields).exec();
   }
 
   // TODO: fix projectId format (ObjectId)

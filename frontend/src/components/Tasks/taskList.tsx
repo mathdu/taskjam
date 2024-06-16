@@ -1,11 +1,12 @@
-import { List, SimpleList } from 'react-admin';
+import { List, ReferenceField, SimpleList } from 'react-admin';
 
 export const TaskList = () => (
   <List>
     <SimpleList
-        primaryText={(record) => record.title}
-        secondaryText={(record) => record.project.title}
-        tertiaryText={(record) => record.completedAt}
+      linkType="show"
+      primaryText={(record) => record.title}
+      secondaryText={() => <ReferenceField source="project" reference="projects" link="show" />}
+      tertiaryText={(record) => record.completedAt}
     />
   </List>
 );
