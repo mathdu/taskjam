@@ -1,20 +1,18 @@
 
 import { stringify } from 'query-string';
 import { fetchUtils, DataProvider } from 'ra-core';
-// import simpleRestProvider from "ra-data-simple-rest";
 
 /**
  * @example
  *
- * getList          => GET http://my.api.url/posts
- * getOne           => GET http://my.api.url/posts/123
- * getMany          => GET http://my.api.url/posts
- * getManyReference => GET http://my.api.url/posts/tasks/
- * update           => PUT http://my.api.url/posts/123
- * create           => POST http://my.api.url/posts
- * delete           => DELETE http://my.api.url/posts/123
+ * getList          => GET http://my.api.url/tasks
+ * getOne           => GET http://my.api.url/tasks/123
+ * getMany          => GET http://my.api.url/tasks
+ * getManyReference => GET http://my.api.url/tasks/project/123
+ * update           => PUT http://my.api.url/tasks/123
+ * create           => POST http://my.api.url/tasks
+ * delete           => DELETE http://my.api.url/tasks/123
  */
-
 const fetchJson = (url: string, options: any = {}) => {
   if (!options.headers)
     options.headers = new Headers({ Accept: 'application/json' });
