@@ -12,7 +12,7 @@ docker-compose up -d
 
 You can use your browser to check that both apps are running:
 - Backend: `http://localhost:3000/api/docs`
-- Frontend `http://localhost:10086/`
+- Frontend `http://localhost:5173/`
 
 ### Manual
 If you don't have docker installed, you'll first want to have a local MongoDB set up. In `backend/src/app.module.ts`, you'll want to replace `mongodb://mongo/nest` with the local URL of your new database.
@@ -32,6 +32,11 @@ cd frontend
 yarn
 yarn dev
 ```
+
+## API Docs
+
+Once running, you can browse the API Swagger doc at [https://localhost:3000/api/docs](https://localhost:3000/api/docs).
+
 
 ## References
 - `https://marmelab.com/react-admin/`
