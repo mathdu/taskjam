@@ -23,7 +23,6 @@ const fetchJson = (url: string, options: any = {}) => {
   const token = authedUser && JSON.parse(authedUser)?.token;
   options.headers.set('Authorization', `Bearer ${token}`);
 
-  console.log(authedUser, token);
   return fetchUtils.fetchJson(url, options);
 };
 
@@ -37,6 +36,7 @@ const restProvider = (
       return httpClient(url).then(({ json }) => {
         return {
           data: json,
+          total: json.length,
         };
       });
     },
@@ -69,7 +69,6 @@ const restProvider = (
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json })),
 
-    // simple-rest doesn't handle provide an updateMany route, so we fallback to calling update n times instead
     updateMany: (resource, params) =>
         Promise.all(
             params.ids.map(id =>
@@ -94,7 +93,6 @@ const restProvider = (
             }),
         }).then(({ json }) => ({ data: json })),
 
-    // simple-rest doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
     deleteMany: (resource, params) =>
         Promise.all(
             params.ids.map(id =>
