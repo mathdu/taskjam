@@ -12,6 +12,7 @@ import { fetchUtils, DataProvider } from 'ra-core';
  * update           => PUT http://my.api.url/tasks/123
  * create           => POST http://my.api.url/tasks
  * delete           => DELETE http://my.api.url/tasks/123
+ * register         => POST http://my.api.url/auth/register
  */
 const fetchJson = (url: string, options: any = {}) => {
   if (!options.headers)
@@ -105,6 +106,12 @@ const restProvider = (
         ).then(responses => ({
             data: responses.map(({ json }) => json.id),
         })),
+
+    register: (params: { email: string; name: string, password: string }) =>
+      httpClient(`${apiUrl}/auth/register`, {
+          method: 'POST',
+          body: JSON.stringify(params),
+      }),
 });
 
 export const dataProvider = restProvider(import.meta.env.VITE_SIMPLE_REST_URL, fetchJson);
